@@ -1,0 +1,244 @@
+################# Variable Definition #################
+set $mod                             Mod4
+set $amod                            Mod1
+set $smod                            Shift
+set $cmod                            Control
+
+set $wm_setting_font                 pango:Hack Nerd Font 14
+set $wm_setting_gap_inner            8
+set $wm_setting_gap_outer            5
+set $wm_setting_border_size          4
+
+set $wm_setting_key_left             n
+set $wm_setting_key_down             e
+set $wm_setting_key_up               u
+set $wm_setting_key_right            i
+
+set $wm_setting_app_terminal         kitty
+set $wm_setting_app_browser          brave
+set $wm_setting_app_launcher         rofi
+set $wm_setting_app_games            steam
+
+set $wm_workspace1                   "1:   Main"
+set $wm_workspace2                   "2:   Term"
+set $wm_workspace3                   "3:   Web"
+set $wm_workspace4                   "4:   Code"
+set $wm_workspace5                   "5:   Read"
+set $wm_workspace6                   "6:   Media"
+set $wm_workspace7                   "7:   Play"
+set $wm_workspace8                   "8:   Tune"
+
+set $wm_color_border_active_bg       #81A1C1
+set $wm_color_border_active_fg       #3B4252
+set $wm_color_border_inactive_bg     #3B4252
+set $wm_color_border_inactive_fg     #D8DEE9
+set $wm_color_background             #2E344099
+
+set $bar_setting_position            top
+set $bar_setting_mode                dock
+set $bar_setting_font                pango:Hack Nerd Font 14
+set $bar_setting_separator           " | "
+set $bar_setting_statusCommand       i3status -c /home/$USER/.config/i3status/i3status.conf
+set $bar_setting_trayoutput          full
+
+set $bar_color_background            #3B425299
+set $bar_color_foreground            #D8DEE9
+set $bar_color_statusline            #D8DEE9
+set $bar_color_separator             #D8DEE9
+
+set $bar_color_workspace_focused_bg  #A3BE8C
+set $bar_color_workspace_focused_fg  #2E3440
+set $bar_color_workspace_active_bg   #EBCB8B
+set $bar_color_workspace_active_fg   #2E3440
+set $bar_color_workspace_inactive_bg #BF616A
+set $bar_color_workspace_inactive_fg #2E3440
+set $bar_color_workspace_urgent_bg   #D08770
+set $bar_color_workspace_urgent_fg   #2E3440
+
+################# Applications #################
+
+bindsym $mod+Return exec --no-startup-id $wm_setting_app_terminal
+bindsym $mod++w exec     --no-startup-id $wm_setting_app_browser
+bindsym $mod++p exec     --no-startup-id $wm_setting_app_launcher -show combi -combi-modes drun#run -modes combi
+bindsym $mod++c exec     --no-startup-id clipmenu -p 'clipboard:'
+bindsym $mod++g exec     --no-startup-id $wm_setting_app_games
+
+# bindsym $mod+$smod+t exec --no-startup-id geany
+bindsym $mod+$smod+c exec --no-startup-id rofi -show calc -modi calc -no-show-match -no-sort
+bindsym $mod+$smod+l exec --no-startup-id blurlock
+bindsym Print exec --no-startup-id "flameshot gui -c -p /home/alex/Pictures/screenshots"
+bindsym $mod+q       kill
+bindsym $mod+$smod+r reload
+bindsym $mod+$smod+b restart
+bindsym $mod+$smod+q exec i3-msg exit
+bindsym $mod+$smod+s exec --no-startup-id rofi -show power-menu -modi power-menu:~/.config/rofi/script/rofi-power-menu
+################# Workspaces #################
+
+# Switch to workspace n
+bindsym $mod+1 workspace $wm_workspace1
+bindsym $mod+2 workspace $wm_workspace2
+bindsym $mod+3 workspace $wm_workspace3
+bindsym $mod+4 workspace $wm_workspace4
+bindsym $mod+5 workspace $wm_workspace5
+bindsym $mod+6 workspace $wm_workspace6
+bindsym $mod+7 workspace $wm_workspace7
+bindsym $mod+8 workspace $wm_workspace8
+
+# Move focused container to workspace n
+bindsym $mod+$smod+1 move container to workspace $wm_workspace1
+bindsym $mod+$smod+2 move container to workspace $wm_workspace2
+bindsym $mod+$smod+3 move container to workspace $wm_workspace3
+bindsym $mod+$smod+4 move container to workspace $wm_workspace4
+bindsym $mod+$smod+5 move container to workspace $wm_workspace5
+bindsym $mod+$smod+6 move container to workspace $wm_workspace6
+bindsym $mod+$smod+7 move container to workspace $wm_workspace7
+bindsym $mod+$smod+8 move container to workspace $wm_workspace8
+
+# Move focused container to workspace n and follow
+bindsym $mod+$cmod+1 move container to workspace $wm_workspace1; workspace $wm_workspace1
+bindsym $mod+$cmod+2 move container to workspace $wm_workspace2; workspace $wm_workspace2
+bindsym $mod+$cmod+3 move container to workspace $wm_workspace3; workspace $wm_workspace3
+bindsym $mod+$cmod+4 move container to workspace $wm_workspace4; workspace $wm_workspace4
+bindsym $mod+$cmod+5 move container to workspace $wm_workspace5; workspace $wm_workspace5
+bindsym $mod+$cmod+6 move container to workspace $wm_workspace6; workspace $wm_workspace6
+bindsym $mod+$cmod+7 move container to workspace $wm_workspace7; workspace $wm_workspace7
+bindsym $mod+$cmod+8 move container to workspace $wm_workspace8; workspace $wm_workspace8
+
+# Launch apps on specific workspace
+# assign [class="brave-browser"] $wm_workspace3
+
+# Open specific applications in floating mode
+for_window [title="alsamixer"] floating enable border pixel 1
+for_window [class="calamares"] floating enable border normal
+for_window [class="Clipgrab"] floating enable
+for_window [title="File Transfer*"] floating enable
+for_window [class="fpakman"] floating enable
+for_window [class="Galculator"] floating enable border pixel 1
+for_window [class="GParted"] floating enable border normal
+for_window [title="i3_help"] floating enable sticky enable border normal
+for_window [class="Lightdm-settings"] floating enable
+for_window [class="Lxappearance"] floating enable sticky enable border normal
+for_window [class="Manjaro-hello"] floating enable
+for_window [class="Manjaro Settings Manager"] floating enable border normal
+for_window [title="MuseScore: Play Panel"] floating enable
+for_window [class="Nitrogen"] floating enable sticky enable border normal
+for_window [class="Oblogout"] fullscreen enable
+for_window [class="octopi"] floating enable
+for_window [title="About Pale Moon"] floating enable
+for_window [class="Pamac-manager"] floating enable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="qt5ct"] floating enable sticky enable border normal
+for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
+for_window [class="Simple-scan"] floating enable border normal
+for_window [class="(?i)System-config-printer.py"] floating enable border normal
+for_window [class="Skype"] floating enable border normal
+for_window [class="Timeset-gui"] floating enable border normal
+for_window [class="(?i)virtualbox"] floating enable border normal
+for_window [class="Xfburn"] floating enable
+
+# switch to workspace with urgent window automatically
+for_window [urgent=latest] focus
+
+################# Scratchpad #################
+for_window [instance="scratchpad"] move window to scratchpad, scratchpad show
+
+# start apps in terminal and allocate them to scratchpads
+bindsym $amod+Return exec --no-startup-id kitty --class scratchpad
+bindsym $amod+f exec --no-startup-id kitty --class scratchpad -e lf
+	# toggle scratchpads
+bindsym $amod+space scratchpad show
+
+################# Window Layout #################
+
+# split in horizontal/vertical orientation
+bindsym $mod+t split h
+bindsym $mod+d split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+j layout stacking
+bindsym $mod+l layout tabbed
+bindsym $mod+y layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+space floating toggle
+floating_modifier $mod
+
+# change focus between tiling / floating windows
+bindsym $mod+h focus mode_toggle
+
+################# Window Management #################
+
+# Change focus
+bindsym $mod+$wm_setting_key_left        focus left
+bindsym $mod+$wm_setting_key_down        focus down
+bindsym $mod+$wm_setting_key_up          focus up
+bindsym $mod+$wm_setting_key_right       focus right
+
+# Move focused window
+bindsym $mod+$smod+$wm_setting_key_left  move left
+bindsym $mod+$smod+$wm_setting_key_down  move down
+bindsym $mod+$smod+$wm_setting_key_up    move up
+bindsym $mod+$smod+$wm_setting_key_right move right
+
+# Resize window (you can also use the mouse for that)
+bindsym $mod+Right resize shrink width 5 px or 5 ppt
+bindsym $mod+Up resize grow height 5 px or 5 ppt
+bindsym $mod+Down resize shrink height 5 px or 5 ppt
+bindsym $mod+Left resize grow width 5 px or 5 ppt
+
+################# Gaps and Borders #################
+
+gaps inner $wm_setting_gap_inner
+gaps outer $wm_setting_gap_outer
+smart_gaps on
+
+default_border pixel $wm_setting_border_size
+default_floating_border pixel $wm_setting_border_size
+smart_borders on
+
+################# Color #################
+
+# class                 border                       background                   text                         indicator                    child_border
+client.focused          $wm_color_border_active_bg   $wm_color_border_active_bg   $wm_color_border_active_fg   $wm_color_border_active_bg   $wm_color_border_active_bg
+client.focused_inactive $wm_color_border_inactive_bg $wm_color_border_inactive_bg $wm_color_border_inactive_fg $wm_color_border_inactive_bg $wm_color_border_inactive_bg
+client.unfocused        $wm_color_border_inactive_bg $wm_color_border_inactive_bg $wm_color_border_inactive_fg $wm_color_border_inactive_bg $wm_color_border_inactive_bg
+client.urgent           $wm_color_border_inactivebg $wm_color_border_inactive_bg $wm_color_border_inactive_fg $wm_color_border_inactive_bg $wm_color_border_inactive_bg
+client.placeholder      $wm_color_border_inactive_bg $wm_color_border_inactive_bg $wm_color_border_inactive_fg $wm_color_border_inactive_bg $wm_color_border_inactive_bg
+client.background       $wm_color_background
+
+################# i3bar #################
+
+bar {
+	position         $bar_setting_position
+	mode             $bar_setting_mode
+	font             $bar_setting_font
+	separator_symbol $bar_setting_separator
+	status_command   $bar_setting_statusCommand
+	tray_output      $bar_setting_trayoutput
+
+	colors {
+		background   $bar_color_background
+		statusline   $bar_color_statusline
+		separator    $bar_color_separator
+
+		focused_workspace  $bar_color_workspace_focused_bg  $bar_color_workspace_focused_bg  $bar_color_workspace_focused_fg
+		active_workspace   $bar_color_workspace_active_bg   $bar_color_workspace_active_bg   $bar_color_workspace_active_fg
+		inactive_workspace $bar_color_workspace_inactive_bg $bar_color_workspace_inactive_bg $bar_color_workspace_inactive_fg
+		urgent_workspace   $bar_color_workspace_urgent_bg   $bar_color_workspace_urgent_bg   $bar_color_workspace_urgent_fg
+	}
+}
+
+################# Fonts, Compositor, Clipboard, lock screen #################
+
+font $wm_setting_font
+exec --no-startup-id pulseaudio
+exec_always --no-startup-id autorandr -l externalmonitor
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id nitrogen --restore
+exec --no-startup-id picom -b
+exec_always --no-startup-id clipmenud
+exec --no-startup-id xautolock -time 10 -locker blurlock
+exec_always --no-startup-id ff-theme-util

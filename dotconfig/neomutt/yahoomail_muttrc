@@ -1,0 +1,15 @@
+# set folder = "imaps://alexchavez@yahoo.com@mail.yahoo.com:993"
+set imap_user = "imap://alexchavez@imap.mail.yahoo.com:993/"
+set imap_pass = "bvtzkjitlafkystj"
+set ssl_starttls=yes
+set ssl_force_tls = yes
+# # set smtp_url = "smtp://(user)@smtp.mail.yahoo.com:587/"
+set smtp_url = "smtp://$imap_user:$imap_pass@smtp.mail.yahoo.com:587"
+set smtp_pass = "bvtzkjitlafkystj"
+set from = "alexchavez"
+set realname = "Alex Chavez"
+set folder = "imaps://export.imap.mail.yahoo.com:993"
+set spoolfile = "+INBOX"
+# set header_cache=~/.mutt/cache/headers
+# set message_cachedir=~/.mutt/cache/bodies
+# set certificate_file=~/.mutt/certificates
