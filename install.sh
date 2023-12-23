@@ -16,6 +16,12 @@ sh -c 'echo "fastestmirror=True" >>/etc/dnf/dnf.conf'
 sh -c 'echo "defaultyes=True" >>/etc/dnf/dnf.conf'
 sed -i 's/installonly_limit=3/installonly_limit=2/' /etc/dnf/dnf.conf
 
+# Install as Root
+pacman -Syu
+pacman -S networkmanager grub neovim
+pacman -S sudo
+pacman -S xorg-{server,xinit}
+
 # Update system
 echo "===Updating System Sofware==="
 dnf update -y
@@ -38,11 +44,6 @@ echo "===Enabling RPM Fusion==="
 dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
 dnf install -y https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-# Install Nvidia Drivers
-echo "===Install Nvidia Drivers==="
-dnf install -y akmod-nvidia
-dnf install -y xorg-x11-drv-nvidia-cuda
-dnf install -y nvidia-vaapi-driver libva-utils vdpauinfo
 
 # Make .config and place config files. Place resource files where needed.
 echo "===Restoring System Configuration and settings==="
@@ -58,6 +59,11 @@ echo "===Installing SDDM, Configure and Installing Login Theme==="
 dnf install -y sddm
 systemctl enable sddm.service -f
 
+# Install LightDM
+sudo pacman -S lightdm
+sudo pacman -S lightdm-slick-greeter
+sudo systemctl enable lightdm.service
+
 cp resources/sddm.conf /etc/sddm.conf.d/
 mkdir -p /usr/share/backgrounds/
 cp resources/rockymountain.jpg /usr/share/backgrounds/
@@ -66,17 +72,33 @@ cp resources/rockymountain.jpg /usr/share/backgrounds/
 tar -xzvf resources/sugar-candy.tar.gz -C /usr/share/sddm/themes
 cp resources/sugar-candy-theme.conf /usr/share/sddm/themes/sugar-candy/theme.conf
 
+# Install base packages
+echo "===Installing Base Packages==="
+pacman -S xorg-server xorg-xinit ttf-inconsolata
+pacman -S base-devel git libx11 libxft xorg-server xorg-xinit terminus-font
+sudo pacman -S libxinerama-dev
+sudo pacman -S libx11-dev
+sudo pacman -S libxinerama
+sudo pacman -S mc
+sudo pacman -S lf
+sudo pacman -S thunar
 
+# Install initial packages
+pacman -S xdg-user-dirs 
+
+xdg-user-dirs-update
+sudo pacman -S xorg-server-xephyr
 # Install essential packages
 echo "===Installing Essential Software==="
-dnf install -y picom fish kitty rofi neovim trash-cli tldr exa neofetch wl-clipboard autojump flameshot mangohud unzip p7zip p7zip-plugins unrar bat lxappearance locate pv xautolock
+pacman -S picom fish rofi neovim trash-cli tldr exa neofetch wl-clipboard flameshot gzip tar unzip p7zip unrar tar rsync bat lxappearance xautolock
 
 # Install Brave browser
 echo "===Installing Extra Software: Browser, File Editor==="
-dnf install -y dnf-plugins-core
-dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
-rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-dnf install -y brave-browser brave-keyring
+cd ~/github/
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+yay -S brave-bin
 
 # Install LF File manager
 dnf copr enable pennbauman/ports
@@ -98,8 +120,8 @@ systemctl --user enable --now clipmenud
 # Install build essentials package and nvim dependencies
 echo "===Installing Development Tools==="
 dnf group install -y "C Development Tools and Libraries" "Development Tools"
-dnf install -y python3-pip git
-pip3 install pynvim
+pacman -S python3-pip git make gcc
+# pip3 install pynvim
 
 # Intall optional packages
 echo "===Installing Optional Packages==="

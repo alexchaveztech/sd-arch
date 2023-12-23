@@ -27,7 +27,7 @@ static const unsigned int alphas[][3]      = {
 };
 
 static const char *const autostart[] = {
-	"autorandr", "-l", "externalmonitor", NULL,
+	"autorandr", "-l", "virtualmonitor", NULL,
 	"/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1", NULL,
 	"nitrogen", "--restore", NULL,
 	"picom", "-b", NULL,
@@ -106,8 +106,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_i,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_g,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-/*	{ MODKEY,                       XK_u,      setmfact,       {.f = -0.05} }, */
-/*	{ MODKEY,                       XK_e,      setmfact,       {.f = +0.05} }, */
+	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
+	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY|ShiftMask,             XK_n,      movestack,      {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_i,      movestack,      {.i = -1 } },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
